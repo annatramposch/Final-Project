@@ -1,0 +1,60 @@
+---
+title: "Final Project: Masculinity Survey"
+format: 
+  html:
+    theme: solar
+execute:
+  echo: false
+---
+
+Class: EPI 590R: R Bootcamp
+
+Student: Anna Tramposch
+
+``` {r}
+#| message: FALSE
+library(tidyverse)
+library(here)
+library(gtsummary)
+library(readr)
+```
+
+``` {r}
+#Create a subset from the raw data
+
+masculinity_rawdata <- read_csv(here("data", "raw", "raw-responses.csv"))
+
+masculinity_subset <- masculinity_rawdata %>%
+		rename(StudyID = ...1,
+					 FeelingMasculine = q0001,
+					 PerceiveMasculine = q0002,
+					 FatherModel = q0004_0001,
+					 MotherModel = q0004_0002,
+					 OtherFamily = q0004_0003,
+					 PopCulture = q0004_0004,
+					 Friends = q0004_0005,
+					 SocietyPressure = q0005,
+					 Employment = q0009,
+					 MaritalStatus = q0024,
+					 KidUnder18 = q0025_0001,
+					 KidOver18 = q0025_0002,
+					 NoKids = q0025_0003,
+					 KidsGeneral = kids,
+					 SexualOrient= q0026,
+					 Age = age3,
+					 Race = q0028,
+					 School = q0029,
+					 Income = q0034) %>%
+		dplyr::select("StudyID", "FeelingMasculine", "PerceiveMasculine",
+									"FatherModel", "MotherModel", "OtherFamily", "PopCulture",
+									"Friends", "SocietyPressure", "Employment", "MaritalStatus", 
+									"KidUnder18", "KidOver18", "NoKids", "KidsGeneral",
+									"SexualOrient", "Age", "Race", "School", "Income")
+        
+
+# View new data set stored
+head(masc_survey)
+
+
+```
+```
