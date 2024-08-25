@@ -100,13 +100,7 @@ This data set contains the results of a survey of 1,615 adult men conducted by S
 
 Table1 <- tbl_summary(
 		masculinity_subset,
-		include = c("FeelingMasculine", "PerceiveMasculine", "SocietyPressure", "MaritalStatus_cat", "KidsGeneral_cat", "SexualOrient_cat", "Age_cat", "Race_cat", "School_cat", "Income_cat"),
-		label = list(
-		race_eth_cat ~ "Race/ethnicity",
-		eyesight_cat ~ "Eyesight",
-		glasses ~ "Wears glasses",
-		age_bir ~ "Age at first birth"
-	),
+		include = ("FeelingMasculine", "PerceiveMasculine", "SocietyPressure", "MaritalStatus_cat", "KidsGeneral_cat", "SexualOrient_cat", "Age_cat", "Race_cat", "School_cat", "Income_cat"),
 	digits = 1,
 	add_overall (last= TRUE))
 
