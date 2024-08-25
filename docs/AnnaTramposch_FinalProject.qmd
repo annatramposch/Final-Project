@@ -13,6 +13,7 @@ Student: Anna Tramposch
 
 ``` {r}
 #| message: FALSE
+
 library(tidyverse)
 library(here)
 library(gtsummary)
@@ -20,9 +21,14 @@ library(readr)
 ```
 
 ``` {r}
-#Create a subset from the raw data
+#| message: FALSE
+# Read in the raw data
 
 masculinity_rawdata <- read_csv(here("data", "raw", "raw-responses.csv"))
+```
+
+```{r}
+# Create a subset from the raw data
 
 masculinity_subset <- masculinity_rawdata %>%
 		rename(StudyID = ...1,
@@ -49,12 +55,41 @@ masculinity_subset <- masculinity_rawdata %>%
 									"FatherModel", "MotherModel", "OtherFamily", "PopCulture",
 									"Friends", "SocietyPressure", "Employment", "MaritalStatus", 
 									"KidUnder18", "KidOver18", "NoKids", "KidsGeneral",
-									"SexualOrient", "Age", "Race", "School", "Income")
-        
+									"SexualOrient", "Age", "Race", "School", "Income") %>%
+		mutate(MaritalStatus_cat = factor(MaritalStatus, labels = c("Divorced", "Married", "Never married", "No answer", "Separated", "Widowed")),
+        	KidsGeneral_cat = factor(KidsGeneral, labels = c("Has Children", "No Children")),
+        	SexualOrient_cat = factor(SexualOrient, labels = c("Bisexual", "Gay", "No answer","Other", "Straight")),
+        	Age_cat = factor(Age, labels = c("18 - 34", "35 - 64", "64 and up")),
+        	Race_cat = factor(Race, labels = c("Asian", "Black", "Hispanic", "Other", "White")),
+        	School_cat = factor(School, labels = c("Associate's degree", "College graudate", "Did not complete high school", "High school or G.E.D", "Post graduate degree", "Some college"))
+ 			 ) 
 
-# View new data set stored
-head(masc_survey)
-
+str(masculinity_subset)
 
 ```
+
+``` {r}
+#| message: FALSE
+# Check that the Factor labels applied correctly
+
+table(masculinity_subset$MaritalStatus)
+table(masculinity_subset$MaritalStatus_cat)
+table(masculinity_subset$KidsGeneral)
+table(masculinity_subset$KidsGeneral_cat)
+table(masculinity_subset$SexualOrient)
+table(masculinity_subset$SexualOrient_cat)
+table(masculinity_subset$Age)
+table(masculinity_subset$Age_cat)
+table(masculinity_subset$Race)
+table(masculinity_subset$Race_cat)
+table(masculinity_subset$School)
+table(masculinity_subset$School_cat)
+```
+
+``` {r}
+# Create a gtsummary
+
+
+
+
 ```
