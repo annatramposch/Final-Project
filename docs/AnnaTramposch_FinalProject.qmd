@@ -6,7 +6,6 @@ format:
 execute:
   echo: false
 ---
-
 Class: EPI 590R: R Bootcamp
 
 Student: Anna Tramposch
@@ -114,4 +113,9 @@ Table1 <- tbl_summary(
 inline_text(Table1)
 
 
+
+
 ```
+
+
+
