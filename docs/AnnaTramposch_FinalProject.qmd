@@ -18,6 +18,7 @@ library(tidyverse)
 library(here)
 library(gtsummary)
 library(readr)
+library(dplyr)
 ```
 
 ``` {r}
@@ -51,27 +52,31 @@ masculinity_subset <- masculinity_rawdata %>%
 					 Race = q0028,
 					 School = q0029,
 					 Income = q0034) %>%
-		dplyr::select("StudyID", "FeelingMasculine", "PerceiveMasculine",
-									"FatherModel", "MotherModel", "OtherFamily", "PopCulture",
-									"Friends", "SocietyPressure", "Employment", "MaritalStatus", 
-									"KidUnder18", "KidOver18", "NoKids", "KidsGeneral",
-									"SexualOrient", "Age", "Race", "School", "Income") %>%
-		mutate(MaritalStatus_cat = factor(MaritalStatus, labels = c("Divorced", "Married", "Never married", "No answer", "Separated", "Widowed")),
+	mutate(MaritalStatus_cat = factor(MaritalStatus, labels = c("Divorced", "Married", "Never married", "No answer", "Separated", "Widowed")),
         	KidsGeneral_cat = factor(KidsGeneral, labels = c("Has Children", "No Children")),
         	SexualOrient_cat = factor(SexualOrient, labels = c("Bisexual", "Gay", "No answer","Other", "Straight")),
         	Age_cat = factor(Age, labels = c("18 - 34", "35 - 64", "64 and up")),
         	Race_cat = factor(Race, labels = c("Asian", "Black", "Hispanic", "Other", "White")),
-        	School_cat = factor(School, labels = c("Associate's degree", "College graudate", "Did not complete high school", "High school or G.E.D", "Post graduate degree", "Some college"))
- 			 ) 
+        	School_cat = factor(School, labels = c("Associate's degree", "College graudate", "Did not complete high school", "High school or G.E.D", "Post graduate degree", "Some college")),
+					Income_cat = factor(Income, labels = c("$0-$9.9k", "$10k - $24.9k", "$100k - 124.9k", "$125k - $149.9k", "$150k - $174.9k", "$175k - $199.9k", "$200k plus", "$25k - $49.9k", "$50k - $74.9k", "$75k - $99.9k", "No answer"))
+					) %>%
+	select("StudyID", "FeelingMasculine", "PerceiveMasculine",
+								"FatherModel", "MotherModel", "OtherFamily", "PopCulture",
+								"Friends", "SocietyPressure", "Employment", "MaritalStatus", 
+								"KidUnder18", "KidOver18", "NoKids", "KidsGeneral",
+								"SexualOrient", "Age", "Race", "School", "Income", 
+								"MaritalStatus_cat", "KidsGeneral_cat", "SexualOrient_cat", "Age_cat", "Race_cat", "School_cat", "Income_cat")
 
 str(masculinity_subset)
 
 ```
 
-``` {r}
-#| message: FALSE
-# Check that the Factor labels applied correctly
+table(masculinity_subset$Income)
 
+``` {r}
+#| results: 'hide'
+
+# Check that the Factor labels applied correctly
 table(masculinity_subset$MaritalStatus)
 table(masculinity_subset$MaritalStatus_cat)
 table(masculinity_subset$KidsGeneral)
@@ -84,12 +89,29 @@ table(masculinity_subset$Race)
 table(masculinity_subset$Race_cat)
 table(masculinity_subset$School)
 table(masculinity_subset$School_cat)
+table(masculinity_subset$Income)
+table(masculinity_subset$Income_cat)
 ```
 
+This data set contains the results of a survey of 1,615 adult men conducted by SurveyMonkey in partnership with FiveThirtyEight and WNYC Studios from May 10-22, 2018. The modeled error estimate for this survey is plus or minus 2.5 percentage points. The percentages have been weighted for age, race, education, and geography using the Census Bureau’s American Community Survey to reflect the demographic composition of the United States age 18 and over. Crosstabs with less than 100 respondents have been left blank because responses would not be statistically significant.
+
 ``` {r}
+#| label: Table1
 # Create a gtsummary
 
+Table1 <- tbl_summary(
+		masculinity_subset,
+		include = c("FeelingMasculine", "PerceiveMasculine", "SocietyPressure", "MaritalStatus_cat", "KidsGeneral_cat", "SexualOrient_cat", "Age_cat", "Race_cat", "School_cat", "Income_cat"),
+		label = list(
+		race_eth_cat ~ "Race/ethnicity",
+		eyesight_cat ~ "Eyesight",
+		glasses ~ "Wears glasses",
+		age_bir ~ "Age at first birth"
+	),
+	digits = 1,
+	add_overall (last= TRUE))
 
+inline_text(Table1)
 
 
 ```
