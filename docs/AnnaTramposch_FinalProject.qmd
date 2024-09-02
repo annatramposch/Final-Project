@@ -121,7 +121,7 @@ table1 <- tbl_summary(
 
 table1
 ```
-There were `r inline_text(table1, variable = "FeelingMasculine", level="Very masculine")` of `r nrow(masculinity_subset)` study respondents who reported feeling "Very Masculine"
+@tbl-one shows there were `r inline_text(table1, variable = "FeelingMasculine", level="Very masculine")` of `r nrow(masculinity_subset)` study respondents who reported feeling "Very Masculine"
 
 
 # Regression Table
@@ -145,7 +145,6 @@ tbl_uvregression(
 #| label: fig-plot
 #| fig-cap: "This is a bar plot of the age among study particpants"
 
-
 Age_barplot <- ggplot(masculinity_subset, aes(x = Age_cat)) +
   geom_bar() +
   ggtitle("Age Among Masculinity Survey Respondents") +
@@ -155,15 +154,19 @@ Age_barplot <- ggplot(masculinity_subset, aes(x = Age_cat)) +
 print(Age_barplot)
 
 totalstudy <- nrow(masculinity_subset)
+```
 
-save(Age_barplot, file = here("results", "Age_barplot.png"))
+``` {r}
+#| message: FALSE
+
+ggsave(Age_barplot, file = here("results", "Age_barplot.png"))
 
 ```
 
 @fig-plot shows that of `r totalstudy` participants in the study, `r sum(masculinity_subset$Age_cat=='18 - 34')` reported they were between 18 and 34 years of age.
  
 
-# Create a Function to Count Responses for Factor Variable Levels
+# Create a Function
 ``` {r}
 count_factor <- function(factor_var) {
   freq_table <- table(factor_var)

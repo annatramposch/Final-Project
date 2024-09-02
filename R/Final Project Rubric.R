@@ -28,6 +28,6 @@
 	# 10 Use the {renv} package to make sure the teaching team can reproduce your results with the same package versions (1 pt)
 			# You don’t need to include any {renv} code, we can see that you have used it because of the renv.lock file you will include
 			# Remember if you are having trouble with {renv} to deactivate it, and then only initiate it when you have installed all the packages you will need
-	# 11 Commit and push your work to GitHub as you go (1 pt)
-	# 12 In a README file, include any notes necessary for us to easily reproduce your analysis (e.g., “Run script.R and then render document.qmd”) (1 pt)
+#	# 11 Commit and push your work to GitHub as you go (1 pt)
+#	# 12 In a README file, include any notes necessary for us to easily reproduce your analysis (e.g., “Run script.R and then render document.qmd”) (1 pt)
 			# We should be able to make a minor change to the underlying data, then re-run the analysis to see how the change affects the results
