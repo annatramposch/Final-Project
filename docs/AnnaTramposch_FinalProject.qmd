@@ -101,7 +101,7 @@ This data set contains the results of a survey of 1,615 adult men conducted by S
 
 # Create a gtsummary
 
-tbl_summary(
+table1 <- tbl_summary(
 		masculinity_subset,
 		by = NULL,
 		include = c("FeelingMasculine", "PerceiveMasculine", "SocietyPressure", "MaritalStatus_cat", "KidsGeneral_cat", "SexualOrient_cat", "Age_cat", "Race_cat", "School_cat", "Income_cat"),
@@ -118,7 +118,11 @@ tbl_summary(
 			Income_cat ~ "Income")
 )
 
+table1
+
 ```
+There were `r inline_text(table1, variable = "FeelingMasculine", level="Very masculine")` of `r nrow(masculinity_subset)` study respondents who reported feeling "Very Masculine"
+
 
 # Regression Table
 ``` {r}
@@ -152,13 +156,16 @@ barplot(prop.table(table(masculinity_subset$Age_cat)),
 
 # Create a Function
 ``` {r}
-# AN EXAMPLE BELOW
+count_factor <- function(factor_var) {
+  freq_table <- table(factor_var)
+  freq_df <- as.data.frame(freq_table)
+  colnames(freq_df) <- c("Level", "Frequency")
+  return(freq_df)
+}
 
-	new_mean <- function(x) {
-		n <- length(x)
-		mean_val <- sum(x) / n
-		return(mean_val)
-	}
+count_factor(masculinity_subset$Income_cat)
+
+
 
 ```
 
