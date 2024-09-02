@@ -177,4 +177,3 @@ count_factor <- function(factor_var) {
 
 count_factor(masculinity_subset$Income_cat)
 ```
-
