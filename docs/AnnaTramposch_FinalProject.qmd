@@ -135,8 +135,30 @@ tbl_uvregression(
 
 ```
 
-``` {r}
-#| label: Figure 1
 
+# Figure 1
+``` {r}
+#| label: figure
+#| fig-cap: "This is a bar plot of the age among study particpants"
+barplot(prop.table(table(masculinity_subset$Age_cat)),
+									 legend.text = NULL, angle = 45,
+									 main = "Age Among Masculinity Survey Respondents",
+				xlab = "Age Bracket",
+				ylab = "Proportion of Respondents",
+				cex.names = par("cex.axis")
+				)
 
 ```
+
+# Create a Function
+``` {r}
+# AN EXAMPLE BELOW
+
+	new_mean <- function(x) {
+		n <- length(x)
+		mean_val <- sum(x) / n
+		return(mean_val)
+	}
+
+```
+
