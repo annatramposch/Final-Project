@@ -1,7 +1,7 @@
 This is Anna Tramposch's Final Project for Epi 590R - R Bootcamp Class
 
 # Instructions
-Run script.R and then render document.qmd”)
+Run script.R and then render AnnaTramposch_FinalProject.qmd”)
 
 # Packages Used
   library(tidyverse)
