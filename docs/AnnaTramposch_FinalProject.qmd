@@ -18,6 +18,7 @@ library(here)
 library(gtsummary)
 library(readr)
 library(dplyr)
+library(broom.helpers)
 ```
 
 ``` {r}
@@ -93,7 +94,11 @@ table(masculinity_subset$Income_cat)
 
 This data set contains the results of a survey of 1,615 adult men conducted by SurveyMonkey in partnership with FiveThirtyEight and WNYC Studios from May 10-22, 2018. The modeled error estimate for this survey is plus or minus 2.5 percentage points. The percentages have been weighted for age, race, education, and geography using the Census Bureau’s American Community Survey to reflect the demographic composition of the United States age 18 and over. Crosstabs with less than 100 respondents have been left blank because responses would not be statistically significant.
 
+# Table One
 ``` {r}
+#| label: tbl-one
+#| tbl-cap: "Study Population Characteristics"
+
 # Create a gtsummary
 
 tbl_summary(
@@ -115,8 +120,23 @@ tbl_summary(
 
 ```
 
+# Regression Table
 ``` {r}
+#| message: FALSE
+#| label: tbl-two
+#| tbl-cap: "Assocation between Feelings of Masculinity and Various Study Characteristics"
 
+tbl_uvregression(
+	masculinity_subset,
+	x = FeelingMasculine,
+	include = c(MaritalStatus_cat, KidsGeneral_cat, SexualOrient_cat, Age_cat,
+							Race_cat, School_cat, Income_cat),
+	method = lm)
 
 ```
 
+``` {r}
+#| label: Figure 1
+
+
+```
