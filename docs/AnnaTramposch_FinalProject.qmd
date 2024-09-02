@@ -19,6 +19,7 @@ library(gtsummary)
 library(readr)
 library(dplyr)
 library(broom.helpers)
+library(ggplot2)
 ```
 
 ``` {r}
@@ -119,7 +120,6 @@ table1 <- tbl_summary(
 )
 
 table1
-
 ```
 There were `r inline_text(table1, variable = "FeelingMasculine", level="Very masculine")` of `r nrow(masculinity_subset)` study respondents who reported feeling "Very Masculine"
 
@@ -142,24 +142,28 @@ tbl_uvregression(
 
 # Figure 1
 ``` {r}
-#| label: figure
+#| label: fig-plot
 #| fig-cap: "This is a bar plot of the age among study particpants"
-barplot(prop.table(table(masculinity_subset$Age_cat)),
-									 legend.text = NULL, angle = 45,
-									 main = "Age Among Masculinity Survey Respondents",
-				xlab = "Age Bracket",
-				ylab = "Proportion of Respondents",
-				cex.names = par("cex.axis")
-				)
+
+
+Age_barplot <- ggplot(masculinity_subset, aes(x = Age_cat)) +
+  geom_bar() +
+  ggtitle("Age Among Masculinity Survey Respondents") +
+  xlab("Age Bracket") +
+  ylab("Numbner of Respondents")
+
+print(Age_barplot)
 
 totalstudy <- nrow(masculinity_subset)
 
+save(Age_barplot, file = here("results", "Age_barplot.png"))
+
 ```
 
-Of `r totalstudy` participants in the study, `r sum(masculinity_subset$Age_cat=='18 - 34')` reported they were between 18 and 34 years of age.
+@fig-plot shows that of `r totalstudy` participants in the study, `r sum(masculinity_subset$Age_cat=='18 - 34')` reported they were between 18 and 34 years of age.
  
 
-# Create a Function
+# Create a Function to Count Responses for Factor Variable Levels
 ``` {r}
 count_factor <- function(factor_var) {
   freq_table <- table(factor_var)
@@ -169,6 +173,5 @@ count_factor <- function(factor_var) {
 }
 
 count_factor(masculinity_subset$Income_cat)
-
 ```
 
